@@ -6,22 +6,20 @@ import React, { Component } from 'react';
 
 class Testi extends Component {
 
-render() {
-    return (
-        <div>kikkeliskokkelis
-            afadf
-            afadfdf
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            
-<a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Ilmoita virheellinen tieto</a>
-
-        </div>
-    )
-}
+    render() {
+        return (
+            <div>kikkeliskokkelis
+                afadf
+                afadfdf Hoppaa kflasfklsd....
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Ilmoita virheellinen tieto</a>
+            </div>
+        )
+    }
 }
 export default Testi
