@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Map, TileLayer, Marker, Popup, } from 'react-leaflet';
 import L from 'leaflet';
 import Testi from './Testi';
-import {GetAllToilets} from '../utils/WebapiService';
+import { GetAllToilets } from '../utils/WebapiService';
 
 
 class ClientMap extends Component {
@@ -13,21 +13,22 @@ class ClientMap extends Component {
     this.state = {
       lat: 60.17131,
       lng: 24.94145,
-      zoom: 17
+      zoom: 17,
+      markers: []
 
 
     }
   }
 
   componentDidMount() {
-    var AllToilets = []
+    var allToilets = []
     GetAllToilets((data) => {
-      AllToilets = data.map(res => {
-        console.log(res);
-        return ({ latitude: res.latitude, longitude: res.longitude, name: res.name })
+      data.map(res => {
+       allToilets.push(res)
       })
-      console.log(data)
-      console.log(AllToilets)
+      
+      this.setState({markers: allToilets})
+      console.log(this.state.markers)
     });
 
 
@@ -62,6 +63,14 @@ class ClientMap extends Component {
       iconSize: new L.Point(20, 20),
       className: 'leaflet-div-icon'
     });
+    const LeafletMarkers = this.state.markers.map(marker => (
+      <Marker position={[marker.latitude, marker.longitude]} icon={iconPerson} key={`marker_${marker.name}`}>
+        <Popup>
+          <span>{marker.name}</span>
+        </Popup>
+      </Marker>
+    ));
+
     return (
       <div>
         <Map
@@ -71,16 +80,7 @@ class ClientMap extends Component {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
           />
-          <Marker position={[this.state.lat, this.state.lng]} icon={iconPerson}  >
-            <Popup><Testi />
-
-            </Popup>
-          </Marker>
-
-
-
-
-
+          {LeafletMarkers}
         </Map>
       </div>
 
